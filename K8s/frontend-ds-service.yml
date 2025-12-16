@@ -41,7 +41,7 @@ spec:
           # Always use specific, immutable tags instead of 'latest' in Production
           image: 17rj/three-tier-todo-frontend:latest   # for prod v1.0.1
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           env:
             # Environment variable pointing to the backend service's internal DNS name
             - name: REACT_APP_BACKEND_URL
@@ -63,7 +63,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /
-              port: 3000
+              port: 80
             initialDelaySeconds: 30 # Give the app time to start up before first check
             periodSeconds: 10 # Check every 10 seconds
             failureThreshold: 3 # Restart after 3 failed checks
@@ -72,7 +72,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /
-              port: 3000
+              port: 80
             initialDelaySeconds: 15 # Start checking readiness sooner
             periodSeconds: 5 # Check more frequently for faster service inclusion
             failureThreshold: 2
