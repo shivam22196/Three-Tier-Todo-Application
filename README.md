@@ -63,6 +63,29 @@ Before deploying, ensure you have:
 - **kubectl** installed and configured (v1.20+)
 - **Docker** installed (for building custom images)
 - **Ingress Controller** (nginx-ingress recommended)
+- ```bash
+  # deployment with helm
+  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+  helm repo update
+  helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
+  ```
+  ```bash
+  # deployment in kind cluster
+  https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+  kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=120s
+  ```
+```bash
+# deployment in cloud(AKS/GKE/EKS)
+https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+  kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=120s
+```
+
 - **Cluster Resources:**
   - Minimum 4GB RAM
   - 2 CPU cores
